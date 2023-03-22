@@ -1,0 +1,22 @@
+,X, Y, Z
+Data Origin,-0.063,-0.063,-0.063
+Data Spacing,0.002,0.002,0.002
+Data extent x, 0,63
+Data extent y, 0,63
+Data extent z, 0,63
+electron Temp = ,100000,K
+electron Density =,7.77124e+14,m^-3
+electron thermal velocity = ,1.23111e+06
+Maximum expected B = ,1
+Plasma Frequency(assume cold) = ,2.50298e+08, Hz
+Plasma period =,3.99524e-09,s
+Cyclotron period =,3.57239e-11,s
+Time for electron to move across 1 cell Tv =,1.62455e-09,s
+Time for electron to move across 1 cell TE =,1.50806e-10,s
+time step between prints = ,1.50806e-09,s
+time step between EBcalc = ,1.50806e-10,s
+dt =,2.51344e-12,s
+Debye Length =,0.000782818,m
+Larmor radius =,6.99964e-06,m
+cell size =,0.002,m
+number of particles per cell = ,1
