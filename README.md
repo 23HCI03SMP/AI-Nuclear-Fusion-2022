@@ -2,7 +2,6 @@
 - MSYS2 Installed
 - Add gcc to PATH in MSYS
     - In the root directory, run `export PATH=$PATH:/mingw64/bin`
-- Install fftw3
 
 To install fftw3 recompiled with OMP enabled:
 ```
@@ -13,6 +12,8 @@ To install fftw3 recompiled with OMP enabled:
 > make
 > make install
 ```
+
+To connect fftw3.h to VSCode, add the path of where fftw3.h is installed (fftw-3.3.10/api)
 
 Add before fftw plans (what does this mean??)
 
