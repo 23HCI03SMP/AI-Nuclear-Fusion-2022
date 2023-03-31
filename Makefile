@@ -5,7 +5,7 @@ IDIR = include
 
 #https://stackoverflow.com/questions/14492436/g-optimization-beyond-o3-ofast
 CC=g++
-CFLAGS= -I$(IDIR) -fopenmp -fopenmp-simd -Ofast -march=native -malign-double -ftree-parallelize-loops=8 -std=c++2b
+CPPFLAGS= -I$(IDIR) -g -fopenmp -fopenmp-simd -Ofast -march=native -malign-double -ftree-parallelize-loops=8 -std=c++2b
 LIBS= -lm -lgsl -lOpenCL.dll -lfftw3f -lomp.dll
 AFLAGS= -flto -funroll-loops -fno-signed-zeros -fno-trapping-math -D_GLIBCXX_PARALLEL #-fgcse-sm -fgcse-las
 
