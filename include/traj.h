@@ -25,12 +25,12 @@
 #define printB //print out B field
 #define printE //print out E field
 //#define FileIn //whether to load from input file (unused)
-#define RamDisk //whether to use RamDisk
+// #define RamDisk //whether to use RamDisk
 
 using namespace std;
 //save file info - initialize filepath
 #ifdef RamDisk
-const string outpath = "R:\\Temp\\out\\";
+const string outpath = "";
 #elif !defined(_WIN32) && (defined(__unix__) || defined(__unix) || (defined(__APPLE__) && defined(__MACH__)))
 /* UNIX-style OS. ------------------------------------------- */
 const string outpath = std::filesystem::temp_directory_path().string() + "/out/";
