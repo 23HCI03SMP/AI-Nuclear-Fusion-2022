@@ -102,17 +102,19 @@ int main()
     //auto Bz = new float[n_partd];
     //    auto *Afield= new float[n_space_divz][n_space_divy][n_space_divx][3]; // x,y,z components
 
+    // Electric potential 
     auto *V = reinterpret_cast<float(&)[n_space_divz][n_space_divy][n_space_divx]>(*fftwf_alloc_real(n_cells));
-
+1   
+    // number density of particles 
     auto *np = new float[2][n_space_divz][n_space_divy][n_space_divx];
     auto *npt = new float[n_space_divz][n_space_divy][n_space_divx];
     int nt[2] = {0, 0};
     float KEtot[2] = {0, 0};
-    auto *currentj = new float[2][3][n_space_divz][n_space_divy][n_space_divx];
-    auto *jc = new float[3][n_space_divz][n_space_divy][n_space_divx];
-    float U[2] = {0, 0};
+    auto *currentj = new float[2][3][n_space_divz][n_space_divy][n_space_divx]; // current due to electrons or ions - vector, 3 components
+    auto *jc = new float[3][n_space_divz][n_space_divy][n_space_divx]; // sum of two currents
+    float U[2] = {0, 0}; // total energy of something?
 
-    ofstream E_file, B_file;
+    ofstream E_file, B_file; // define two files
 
     log_headers();
 
@@ -123,14 +125,14 @@ int main()
     cout << "float size=" << sizeof(float) << ", "
          << "int32_t size=" << sizeof(int32_t) << ", "
          << "int size=" << sizeof(int) << endl;
-    int ncalc[2] = {md_me*1, 1};
+    int ncalc[2] = {md_me*1, 1}; // mass_electron / mass_deuterium
     int total_ncalc[2] = {0, 0};
     // particle 0 - electron, particle 1 deuteron
     // set plasma parameters
-    int mp[2] = {1, 1835 * 2};
+    int mp[2] = {1, 1835 * 2}; // mass of particles
     // float mp[2]= {9.10938356e-31,3.3435837724e-27}; //kg
     int qs[2] = {-1, 1};        // Sign of charge
-    float Temp[2] = {1e5, 1e5}; // in K convert to eV divide by 1.160451812e4
+    float Temp[2] = {1e5, 1e5}; // in Kelvins convert to eV divide by 1.160451812e4
 
     // initial bulk electron, ion velocity
     float v0[2][3] = {{0, 0, 0/*1e6*/}, {0, 0, 0}};
@@ -148,9 +150,9 @@ int main()
     // float initial_current=Density_e*e_charge*v0[0][2]*area;
     // float       Bmax=initial_current*2e-7/a0*10;
 
-    float plasma_freq = sqrt(Density_e * e_charge * e_charge_mass / (mp[0] * epsilon0)) / (2 * pi);
+    float plasma_freq = sqrt(Density_e * e_charge * e_charge_mass / (mp[0] * epsilon0)) / (2 * pi); // Plasma frequency formula
     float plasma_period = 1 / plasma_freq;
-    float Debye_Length = sqrt(epsilon0 * kb * Temp[0] / (Density_e * e_charge * e_charge));
+    float Debye_Length = sqrt(epsilon0 * kb * Temp[0] / (Density_e * e_charge * e_charge)); 
     float vel_e = sqrt(kb * Temp[0] / (mp[0] * e_mass));
     float Tv = a0 / vel_e; // time for electron to move across 1 cell
     float Tcyclotron = 2.0 * pi * mp[0] / (e_charge_mass * Bmax);
@@ -170,7 +172,8 @@ int main()
     //   cout <<"Initial Current = "<<initial_current<<endl;
     //   cout <<"Initial Bmax = "<<initial_current*2e-7/a0<<endl;
 
-    cout << "Start up dt = " << timer.replace() << "s\n";
+    cout << "Start up dt = " << timer.replace() << "s\n"; // time taken for each time step in real life
+
 #define generateRandom
     #ifdef generateRandom
     // set initial positions and velocity
@@ -197,12 +200,12 @@ int main()
         {
 
             // spherical plasma radius is 1/8 of total extent.
-            float r = r0 * pow(gsl_ran_flat(rng, 0, 1), 0.3333333333);
+            float r = r0 * pow(gsl_ran_flat(rng, 0, 1), 0.3333333333); // cube root for uniform distribution (3d not 1d)
             //if (p == 0) r += n_space / 8 * a0;
             double x, y, z;
             gsl_ran_dir_3d(rng, &x, &y, &z);
             pos0x[p][n] = r * x;
-            pos1x[p][n] = pos0x[p][n] + (gsl_ran_gaussian(rng, sigma[p]) + v0[p][0]) * dt[p];
+            pos1x[p][n] = pos0x[p][n] + (gsl_ran_gaussian(rng, sigma[p]) + v0[p][0]) * dt[p]; // normal distrubution
             pos0y[p][n] = r * y;
             pos1y[p][n] = pos0y[p][n] + (gsl_ran_gaussian(rng, sigma[p]) + v0[p][1]) * dt[p];
             pos0z[p][n] = r * z;
@@ -225,7 +228,7 @@ int main()
     #endif
     generateField(Ee, Be);
     cout << "Set initial random positions: " << timer.replace() << "s\n";
-    float posL[3], posH[3], posL2[3], dd[3];
+    float posL[3], posH[3], posL2[3], dd[3]; // define minimum and maximum positions
     // set spacing between cells
     for (int c = 0; c < 3; c++)
         dd[c] = a0;
@@ -284,8 +287,8 @@ int main()
     }
 
     int i_time = 0;
-    get_densityfields(currentj, np, npt, nt, KEtot, posL, posH, dd, pos1x, pos1y, pos1z, pos0x, pos0y, pos0z, q, dt, mp, n_part, jc);
-    calcEBV(V, E, B, Ee, Be, npt, jc, dd, Emax, Bmax);
+    get_densityfields(currentj, np, npt, nt, KEtot, posL, posH, dd, pos1x, pos1y, pos1z, pos0x, pos0y, pos0z, q, dt, mp, n_part, jc); // density of particles in the different cells + current density in cells
+    calcEBV(V, E, B, Ee, Be, npt, jc, dd, Emax, Bmax); // electric magnetic fields
     calc_trilin_constants(E, Ea, dd, posL);
     calc_trilin_constants(B, Ba, dd, posL);
     #ifdef Uon_
