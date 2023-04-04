@@ -1,5 +1,6 @@
 #include "include/traj.h"
 // calculate constants for each cell for trilinear interpolation
+// https://en.wikipedia.org/wiki/Trilinear_interpolation
 void calc_trilin_constants(float E[3][n_space_divz][n_space_divy][n_space_divx],
                            float Ea[n_space_divz][n_space_divy][n_space_divx][3][ncoeff],
                            float dd[3], float posL[3])
