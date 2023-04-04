@@ -40,7 +40,7 @@ This project aims to develop a Particle-in-Cell code to simulate charged particl
     - [ ] Electric field around the cylinder
 - [ ] Add in artificial viscosity to simulate energy loss/gain
     - ```math
-        F = q(E + v \times B) \plus rv w
+        F = q(E + v \times B) + r \times v \times w
         ```
     - Here, `r` is the artificial viscosity coefficient which is negative when energy is lost and positive when energy is gained
 - [ ] Add temperature field Te[x][y][z]
