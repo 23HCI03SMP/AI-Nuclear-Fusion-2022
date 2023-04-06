@@ -65,4 +65,6 @@ This project aims to develop a Particle-in-Cell code to simulate charged particl
     - $P_{DT} = 5.6 \times 10^{-13}n_Dn_T(\overline{\sigma v})_{DT}$ $watt/cm^3$
     - $P_{DHe^3} = 2.9 \times 10^{-12}n_Dn_{He^3}(\overline{\sigma v})_{DHe^3}$ $watt/cm^3$
   - [Power transfer between electrons and ions](https://tanimislam.github.io/research/NRL_Formulary_2019.pdf#page=32)?
-    - $v_s^{e|i}/n_iZ^2 \lambda_{ei} \approx 0.23\mu^{3/2}T^{-3/2} \longrightarrow 3.9 \times 10^{-6}\epsilon^{-3/2} \\ v_\perp^{e|i}/n_iZ^2\lambda_{ei} \approx 2.5 \times 10^{-4}\mu^{1/2}T^{-1/2}\epsilon^{-1} \longrightarrow 7.7 \times 10^{-6}\epsilon^{-3/2} \\ v_\parallel^{e|i}/n_iZ^2 \lambda_{ei} \approx 1.2 \times 10^{-4}\mu^{1/2}T^{-1/2}\epsilon^{-1} \longrightarrow 2.1 \times 10^{-9}\mu^{-1}T\epsilon^{-5/2}$
+    - $v_s^{e|i}/n_iZ^2 \lambda_{ei} \approx 0.23\mu^{3/2}T^{-3/2} \longrightarrow 3.9 \times 10^{-6}\epsilon^{-3/2}$
+    - $v_\perp^{e|i}/n_iZ^2\lambda_{ei} \approx 2.5 \times 10^{-4}\mu^{1/2}T^{-1/2}\epsilon^{-1} \longrightarrow 7.7 \times 10^{-6}\epsilon^{-3/2}$
+    - $v_\parallel^{e|i}/n_iZ^2 \lambda_{ei} \approx 1.2 \times 10^{-4}\mu^{1/2}T^{-1/2}\epsilon^{-1} \longrightarrow 2.1 \times 10^{-9}\mu^{-1}T\epsilon^{-5/2}$
