@@ -60,11 +60,25 @@ This project aims to develop a Particle-in-Cell code to simulate charged particl
     - $P_{Br} = 1.69 \times 10^{-32}N_eT_e^{1/2} \sum[Z^2N(Z)]$ $watt/cm^3$, where the sum of all ionization states Z
   - Cyclotron radiation loss from NRL Plasma formulary in magnetic field **B**
     - $P_c = 6.21 \times 10^{-38}B^2N_eT_e$ $watt/cm^3$
-  - Power density released in the form of charged particles from fusion from NRL Plasma formulary (Assume to be absorbed within the cell for the time being not realistic as fusion products may have very long range. if cell sizes are small, most of energy from fusion products will be lost from the cell) all in in $watts/cm^3$
+  - Power density released in the form of charged particles from fusion from NRL Plasma formulary (Assume to be absorbed within the cell for the time being not realistic as fusion products may have very long range. If cell sizes are small, most of energy from fusion products will be lost from the cell) all in in $watts/cm^3$
     - $P_{DD} = 3.3 \times 10^{-13}n_D{}^2(\overline{\sigma v})_{DD}$ $watt/cm^3$
     - $P_{DT} = 5.6 \times 10^{-13}n_Dn_T(\overline{\sigma v})_{DT}$ $watt/cm^3$
     - $P_{DHe^3} = 2.9 \times 10^{-12}n_Dn_{He^3}(\overline{\sigma v})_{DHe^3}$ $watt/cm^3$
-  - [Power transfer between electrons and ions](https://tanimislam.github.io/research/NRL_Formulary_2019.pdf#page=32)?
-    - $v_s^{e|i}/n_iZ^2 \lambda_{ei} \approx 0.23\mu^{3/2}T^{-3/2} \longrightarrow 3.9 \times 10^{-6}\epsilon^{-3/2}$
-    - $v_\perp^{e|i}/n_iZ^2\lambda_{ei} \approx 2.5 \times 10^{-4}\mu^{1/2}T^{-1/2}\epsilon^{-1} \longrightarrow 7.7 \times 10^{-6}\epsilon^{-3/2}$
-    - $v_\parallel^{e|i}/n_iZ^2 \lambda_{ei} \approx 1.2 \times 10^{-4}\mu^{1/2}T^{-1/2}\epsilon^{-1} \longrightarrow 2.1 \times 10^{-9}\mu^{-1}T\epsilon^{-5/2}$
+  - [Power transfer between charged particles](https://tanimislam.github.io/research/NRL_Formulary_2019.pdf#page=32), where test particle energy $\epsilon$ and field particle temperature $T$ are both in eV; $\mu = m_i/m_p$ where $m_P$ is the proton mass; $Z$ is ion charge state; in electron–electron and ion–ion encounters, field particle quantities are distinguished by a prime.
+  - The two expressions given below for each rate hold for very slow ($x^{\alpha \backslash \beta} \ll 1$) and very fast ($x^{\alpha \backslash \beta} \gg 1$) test particles, respectively.
+    - Electron-electron
+      - $v_s^{e|e}/n_e \lambda_{ee} \approx 5.8 \times 10^{-6}T^{-3/2} \longrightarrow 7.7 \times 10^{-6} \epsilon^{-3/2}$
+      - $v_\perp^{e|e}/n_e \lambda_{ee} \approx 5.8 \times 10^{-6}T^{-1/2} \epsilon^{-1} \longrightarrow 7.7 \times 10^{-6} \epsilon^{-3/2}$
+      - $v_\parallel^{e|e}/n_e \lambda_{ee} \approx 2.9 \times 10^{-6}T^{-1/2} \epsilon^{-1} \longrightarrow 3.9 \times 10^{-6} T \epsilon^{-5/2}$
+    - Electron-ion
+      - $v_s^{e|i}/n_iZ^2 \lambda_{ei} \approx 0.23\mu^{3/2}T^{-3/2} \longrightarrow 3.9 \times 10^{-6}\epsilon^{-3/2}$
+      - $v_\perp^{e|i}/n_iZ^2\lambda_{ei} \approx 2.5 \times 10^{-4}\mu^{1/2}T^{-1/2}\epsilon^{-1} \longrightarrow 7.7 \times 10^{-6}\epsilon^{-3/2}$
+      - $v_\parallel^{e|i}/n_iZ^2 \lambda_{ei} \approx 1.2 \times 10^{-4}\mu^{1/2}T^{-1/2}\epsilon^{-1} \longrightarrow 2.1 \times 10^{-9}\mu^{-1}T\epsilon^{-5/2}$
+    - Ion-electron
+      - $v_s^{i|e}/n_eZ^2 \lambda_{ie} \approx 1.6 \times 10^{-9}\mu^{-1}T^{-3/2} \longrightarrow 1.7 \times 10^{-4}\mu^{1/2}\epsilon^{-3/2}$
+      - $v_\perp^{i|e}/n_eZ^2 \lambda_{ie} \approx 3.2 \times 10^{-9}\mu^{-1}T^{-1/2}\epsilon^{-1} \longrightarrow 1.8 \times 10^{-7}\mu^{-1/2}\epsilon^{-3/2}$
+      - $v_\parallel^{i|e}/n_eZ^2 \lambda_{ie} \approx 1.6 \times 10^{-9}\mu^{-1}T^{-1/2}\epsilon^{-1} \longrightarrow 1.7 \times 10^{-4}\mu^{-1/2}\epsilon^{-5/2}$
+    - Ion-ion
+      - $\frac{v_s^{i|i^\prime}}{n_{i^\prime Z^2Z^{\prime 2}\lambda_{ii^\prime}}} \approx 6.8 \times 10^{-8}\frac{\mu^{\prime 1/2}}{\mu}(1 + \frac{\mu^\prime}{\mu})T^{-3/2} \longrightarrow 9.0 \times 10^{-8}(\frac{1}{\mu} + \frac{1}{\mu^\prime})\frac{\mu^{1/2}}{\epsilon^{3/2}}$
+      - $\frac{v_\perp^{i|i^\prime}}{n_{i^\prime Z^2Z^{\prime 2}\lambda_{ii^\prime}}} \approx 1.4 \times 10^{-7}\mu^{\prime 1/2}\mu^{-1}T^{-1/2}\epsilon^{-1} \longrightarrow 1.8 \times 10^{-7}\mu^{-1/2}\epsilon^{-3/2}$
+      - $\frac{v_\parallel^{i|i^\prime}}{n_{i^\prime Z^2Z^{\prime 2}\lambda_{ii^\prime}}} \approx 6.8 \times 10^{-8}\mu^{\prime 1/2}\mu^{-1}T^{-1/2}\epsilon^{-1} \longrightarrow 9.0 \times 10^{-8}\mu^{1/2}\mu^\prime\epsilon^{-5/2}$
